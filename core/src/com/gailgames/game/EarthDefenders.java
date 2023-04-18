@@ -121,7 +121,6 @@ public class EarthDefenders extends ApplicationAdapter {
 
 				if (lazerJugadorHitBox.y > 1920) lazerJugadorHitBox.y = naveJugadorHitBox.y + 90;
 
-
 			}
 		}
 

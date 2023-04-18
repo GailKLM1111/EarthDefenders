@@ -12,6 +12,7 @@ public class DesktopLauncher {
 		config.setWindowedMode(1080, 1920);
 		config.useVsync(true);
 		config.setForegroundFPS(60);
-		new Lwjgl3Application(new EarthDefenders(), config);
+//		new Lwjgl3Application(new EarthDefenders(), config);
+		new Lwjgl3Application(new Main(), config);
 	}
 }
