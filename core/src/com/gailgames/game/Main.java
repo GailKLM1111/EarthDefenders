@@ -13,8 +13,9 @@ public class Main extends ApplicationAdapter {
     Texture naveEnemigaImg;
     NaveJugador naveJugador;
     Enemigo[] enemigos;
-    int columnas = 5;
-    int filas = 2;
+    int numEnemigos = 5;
+    int nivel = 1;
+    int oleada = 5;
 
     @Override
     public void create() {
@@ -24,7 +25,7 @@ public class Main extends ApplicationAdapter {
         lazerJugadorImg = new Texture("lazerJugador.png");
         naveEnemigaImg = new Texture("naveEnemiga.png");
         naveJugador = new NaveJugador(naveJugadorImg, lazerJugadorImg);
-        enemigos = new Enemigo[columnas * filas];
+        enemigos = new Enemigo[numEnemigos * nivel];
 
         for (int i = 0; i < enemigos.length; i++) {
 
@@ -46,17 +47,17 @@ public class Main extends ApplicationAdapter {
 
             if (enemigos[i].vivo) {
 
-                if (naveJugador.lazer.getBoundingRectangle().overlaps(enemigos[i].enemigo.getBoundingRectangle())) {
+//                if (naveJugador.lazer.getBoundingRectangle().overlaps(enemigos[i].enemigo.getBoundingRectangle())) {
+//
+//                    naveJugador.posicionLazer.y = 10000;
+//                    enemigos[i].vivo = false;
+//                    break;
+//
+//                }
 
-                    naveJugador.posicionLazer.y = 10000;
-                    enemigos[i].vivo = false;
-                    break;
+                if (naveJugador.lazer1.lazer.getBoundingRectangle().overlaps(enemigos[i].enemigo.getBoundingRectangle())) {
 
-                }
-
-                if (naveJugador.lazer2.lazer.getBoundingRectangle().overlaps(enemigos[i].enemigo.getBoundingRectangle())) {
-
-                    naveJugador.lazer2.posicion.y = 10000;
+                    naveJugador.lazer1.Desaparecer();
                     enemigos[i].vivo = false;
                     break;
 
@@ -64,14 +65,34 @@ public class Main extends ApplicationAdapter {
 
             }
         }
+
+        int numEnemigosVivos = enemigos.length;
+        int contador = 0;
+        int numOleada = 1;
 
         for (int i = 0; i < enemigos.length; i++) {
 
             if (enemigos[i].vivo) {
                 enemigos[i].Pintar(batch);
+            } else {
+                numEnemigosVivos--;
             }
 
         }
+
+        if (numEnemigosVivos == 0) {
+
+            nivel++;
+            enemigos = new Enemigo[numEnemigos * nivel];
+
+            for (int i = 0; i < enemigos.length; i++) {
+
+                enemigos[i] = new Enemigo(naveEnemigaImg);
+
+            }
+
+        }
+
         batch.end();
     }
 
