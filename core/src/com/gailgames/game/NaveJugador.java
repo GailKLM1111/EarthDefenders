@@ -71,8 +71,6 @@ public class NaveJugador {
         lazer2.Pintar(batch);
         naveJugador.setPosition(posicion.x, posicion.y);
         naveJugador.draw(batch);
-        lazer.setPosition(posicionLazer.x, posicionLazer.y);
-        lazer.draw(batch);
     }
 
 }
