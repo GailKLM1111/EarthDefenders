@@ -16,7 +16,8 @@ public class NaveJugador {
     public Sprite lazer;
     public float velocidad = 500;
     public float velocidadLazer = 1000;
-    long tiempoDisparo;
+    long tiempoDisparo1;
+    long tiempoDisparo2;
     Lazer lazer1;
     Lazer lazer2;
 
@@ -34,25 +35,22 @@ public class NaveJugador {
 
     public void Mover(float deltaTime) {
 
-//        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && posicionLazer.y > 1920) {
-//            posicionLazer.x = posicion.x + naveJugador.getWidth() / 2 - lazer.getWidth() / 2;
-//            posicionLazer.y = posicion.y + naveJugador.getHeight() / 2 + lazer.getHeight() / 2;
-//
-//            lazer1.Disparar(posicionLazer);
-//            lazer2.Disparar(posicionLazer);
-//
-//        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
 
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-
-            if (!lazer1.vivo && TimeUtils.timeSinceMillis(tiempoDisparo) > 1000) {
-                lazer1.Disparar(posicion);
-                tiempoDisparo = TimeUtils.millis();
+            if (!lazer1.vivo && TimeUtils.timeSinceMillis(tiempoDisparo1) > 1000) {
+                lazer1.Disparar(CalculaPosicionLazer(1));
+                tiempoDisparo1 = TimeUtils.millis();
             }
 
-//            posicionLazer.y = 1000000;
-//            lazer1.Desaparecer();
-//            lazer2.Desaparecer();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+
+            if (!lazer2.vivo && TimeUtils.timeSinceMillis(tiempoDisparo2) > 1000) {
+                lazer2.Disparar(CalculaPosicionLazer(2));
+                tiempoDisparo2 = TimeUtils.millis();
+            }
+
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) posicion.x -= deltaTime * velocidad;
@@ -61,7 +59,23 @@ public class NaveJugador {
         if (posicion.x < 0) posicion.x = 0;
         if (posicion.x > 1080 - 160) posicion.x = 1080 - 160;
 
-//        posicionLazer.y += deltaTime * velocidadLazer;
+    }
+
+    public Vector2 CalculaPosicionLazer (int numLazer) {
+
+        Vector2 posicionLazer;
+
+        if (numLazer == 1) {
+
+            posicionLazer = new Vector2(posicion.x + lazer.getWidth() / 2, posicion.y + lazer.getHeight() / 2);
+
+        } else {
+
+            posicionLazer = new Vector2((posicion.x + lazer2.lazer.getWidth() / 2) + 150, posicion.y + lazer2.lazer.getHeight() / 2);
+
+        }
+
+        return posicionLazer;
 
     }
 

@@ -23,6 +23,7 @@ public class Enemigo {
         enemigo.setScale(1);
         lazer = new Sprite(lazerEnemigoImg);
         lazerEnemigo = new LazerEnemigo(lazer);
+        tiempoDisparo = TimeUtils.millis();
 
     }
 

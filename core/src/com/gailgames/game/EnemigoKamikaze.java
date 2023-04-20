@@ -15,7 +15,7 @@ public class EnemigoKamikaze {
     public Sprite lazer;
     long ultimoKmikaze;
     public int salud = 2;
-    int velocidad = 1;
+    int velocidad = 2;
     public EnemigoKamikaze(Texture enemigoImg) {
 
         posicion = posicionRandom();

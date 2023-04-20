@@ -83,6 +83,15 @@ public class Main extends ApplicationAdapter {
 
                 }
 
+                if (naveJugador.lazer2.lazer.getBoundingRectangle().overlaps(enemigos[i].enemigo.getBoundingRectangle())) {
+
+                    naveJugador.lazer2.Desaparecer();
+                    enemigos[i].vivo = false;
+                    score.SumarPuntos(10);
+                    break;
+
+                }
+
             }
 
             if (enemigos[i].lazerEnemigo.lazerEnemigo.getBoundingRectangle().overlaps(naveJugador.naveJugador.getBoundingRectangle())) {
@@ -101,6 +110,15 @@ public class Main extends ApplicationAdapter {
                 if (naveJugador.lazer1.lazer.getBoundingRectangle().overlaps(enemigosKamikaze[i].enemigoKamikaze.getBoundingRectangle())) {
 
                     naveJugador.lazer1.Desaparecer();
+                    enemigosKamikaze[i].vivo = false;
+                    score.SumarPuntos(50);
+                    break;
+
+                }
+
+                if (naveJugador.lazer2.lazer.getBoundingRectangle().overlaps(enemigosKamikaze[i].enemigoKamikaze.getBoundingRectangle())) {
+
+                    naveJugador.lazer2.Desaparecer();
                     enemigosKamikaze[i].vivo = false;
                     score.SumarPuntos(50);
                     break;
@@ -155,6 +173,12 @@ public class Main extends ApplicationAdapter {
 
             }
 
+            for (int i = 0; i < enemigosKamikaze.length; i++) {
+
+                enemigosKamikaze[i] = new EnemigoKamikaze(enemigoKamikazeImg);
+
+            }
+
         }
 
         batch.end();
@@ -164,6 +188,10 @@ public class Main extends ApplicationAdapter {
     public void dispose() {
         batch.dispose();
         naveJugadorImg.dispose();
+        lazerImg.dispose();
+        naveEnemigaImg.dispose();
+        enemigoKamikazeImg.dispose();
+        fondoImg.dispose();
     }
 
 }

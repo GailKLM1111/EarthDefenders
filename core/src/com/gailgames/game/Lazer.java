@@ -36,9 +36,12 @@ public class Lazer {
 
     public void Disparar(Vector2 posicionNave) {
 
-        posicion.x = posicionNave.x + lazer.getWidth() / 2;
-//        posicion.x = 300;
-        posicion.y = posicionNave.y + lazer.getHeight() / 2;
+//        posicion.x = posicionNave.x + lazer.getWidth() / 2;
+//        posicion.y = posicionNave.y + lazer.getHeight() / 2;
+
+        posicion.x = posicionNave.x;
+        posicion.y = posicionNave.y;
+
         vivo = true;
 
     }

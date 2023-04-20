@@ -1,5 +1,6 @@
 package com.gailgames.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -30,7 +31,7 @@ public class Score {
     public void Pintar(SpriteBatch batch) {
 
         scoreString = "Score: " + score;
-        fuente.draw(batch, scoreString, 10, 1920 - 10);
+        fuente.draw(batch, scoreString, 10, Gdx.graphics.getHeight() - 10);
 
     }
 
