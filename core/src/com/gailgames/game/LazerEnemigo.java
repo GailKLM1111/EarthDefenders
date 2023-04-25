@@ -19,7 +19,7 @@ public class LazerEnemigo {
     public LazerEnemigo(Sprite lazerImg) {
 
         lazerEnemigo = new Sprite(lazerImg);
-        lazerEnemigo.setColor(Color.FIREBRICK);
+//        lazerEnemigo.setColor(Color.FIREBRICK);
         lazerEnemigo.rotate(180);
         posicion = new Vector2(0, -1000000);
         vivo = false;

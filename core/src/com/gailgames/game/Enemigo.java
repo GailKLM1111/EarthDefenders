@@ -13,21 +13,29 @@ public class Enemigo {
     public Boolean vivo = true;
     public Sprite lazer;
     public LazerEnemigo lazerEnemigo;
+    public Explocion explocion;
     long tiempoDisparo;
 
     public int salud = 2;
-    public Enemigo(Texture enemigoImg, Texture lazerEnemigoImg) {
+    public Enemigo(Texture enemigoImg, Texture lazerEnemigoImg, Texture explosionEnemigoImg) {
 
         posicion = posicionRandom();
         enemigo = new Sprite(enemigoImg);
         enemigo.setScale(1);
         lazer = new Sprite(lazerEnemigoImg);
         lazerEnemigo = new LazerEnemigo(lazer);
+        explocion = new Explocion(explosionEnemigoImg, posicion);
         tiempoDisparo = TimeUtils.millis();
 
     }
 
     public void Pintar(SpriteBatch batch) {
+
+        if (!vivo) {
+            explocion.Posicion(posicion);
+            explocion.Pintar(batch);
+        }
+
         lazerEnemigo.Pintar(batch);
         Atacar();
         enemigo.setPosition(posicion.x, posicion.y);

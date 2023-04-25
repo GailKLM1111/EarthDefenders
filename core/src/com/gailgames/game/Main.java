@@ -11,13 +11,16 @@ public class Main extends ApplicationAdapter {
 
     SpriteBatch batch;
     Texture naveJugadorImg;
-    Texture lazerImg;
+    Texture lazerJugadorImg;
+    Texture lazerEnemigoImg;
     Texture naveEnemigaImg;
     Texture enemigoKamikazeImg;
+    Texture explosionSheet;
     NaveJugador naveJugador;
     Enemigo[] enemigos;
     EnemigoKamikaze[] enemigosKamikaze;
     Score score;
+    Explocion explosion;
     int numEnemigos = 5;
     int nivel = 1;
     int oleada = 5;
@@ -34,10 +37,12 @@ public class Main extends ApplicationAdapter {
         batch = new SpriteBatch();
         fondoImg = new Texture("fondo.png");
         naveJugadorImg = new Texture("naveJugador.png");
-        lazerImg = new Texture("lazerJugador.png");
+        lazerJugadorImg = new Texture("lazerJugador.png");
+        lazerEnemigoImg = new Texture("lazerEnemigo.png");
         naveEnemigaImg = new Texture("naveEnemiga.png");
         enemigoKamikazeImg = new Texture("naveKamikaze.png");
-        naveJugador = new NaveJugador(naveJugadorImg, lazerImg);
+        explosionSheet = new Texture("explosion_sheet.png");
+        naveJugador = new NaveJugador(naveJugadorImg, lazerJugadorImg);
         enemigos = new Enemigo[numEnemigos * nivel];
         enemigosKamikaze = new EnemigoKamikaze[2];
         score = new Score();
@@ -45,9 +50,11 @@ public class Main extends ApplicationAdapter {
         fondo = new Sprite(fondoImg);
         posicionFondo = new Vector2(0, 0);
 
+        explosion = new Explocion(explosionSheet, new Vector2(-200, -2000));
+
         for (int i = 0; i < enemigos.length; i++) {
 
-            enemigos[i] = new Enemigo(naveEnemigaImg, lazerImg);
+            enemigos[i] = new Enemigo(naveEnemigaImg, lazerEnemigoImg, explosionSheet);
 
         }
 
@@ -70,11 +77,21 @@ public class Main extends ApplicationAdapter {
         naveJugador.Pintar(batch);
         score.Pintar(batch);
 
+//        if (explosion.contadorFrames == 60) {
+//
+//            explosion = new Explocion(explosionSheet, new Vector2(-200, -2000));
+//
+//        }
+
         for (int i = 0; i < enemigos.length; i++) {
 
             if (enemigos[i].vivo) {
 
+                explosion.Pintar(batch);
+
                 if (naveJugador.lazer1.lazer.getBoundingRectangle().overlaps(enemigos[i].enemigo.getBoundingRectangle())) {
+
+                    explosion.Posicion(enemigos[i].posicion);
 
                     naveJugador.lazer1.Desaparecer();
                     enemigos[i].vivo = false;
@@ -84,6 +101,8 @@ public class Main extends ApplicationAdapter {
                 }
 
                 if (naveJugador.lazer2.lazer.getBoundingRectangle().overlaps(enemigos[i].enemigo.getBoundingRectangle())) {
+
+                    explosion.Posicion(enemigos[i].posicion);
 
                     naveJugador.lazer2.Desaparecer();
                     enemigos[i].vivo = false;
@@ -169,7 +188,7 @@ public class Main extends ApplicationAdapter {
 
             for (int i = 0; i < enemigos.length; i++) {
 
-                enemigos[i] = new Enemigo(naveEnemigaImg, lazerImg);
+                enemigos[i] = new Enemigo(naveEnemigaImg, lazerEnemigoImg, explosionSheet);
 
             }
 
@@ -188,7 +207,7 @@ public class Main extends ApplicationAdapter {
     public void dispose() {
         batch.dispose();
         naveJugadorImg.dispose();
-        lazerImg.dispose();
+        lazerJugadorImg.dispose();
         naveEnemigaImg.dispose();
         enemigoKamikazeImg.dispose();
         fondoImg.dispose();

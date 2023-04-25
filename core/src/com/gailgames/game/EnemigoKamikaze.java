@@ -53,21 +53,33 @@ public class EnemigoKamikaze {
 
     public void KamiKaze(Vector2 posicionNaveJugador) {
 
-        if (posicion.x < posicionNaveJugador.x) {
-            posicion.x += velocidad;
-        } else {
-            posicion.x -= velocidad;
+        if (posicion.y >= posicionNaveJugador.y) {
+
+            if (posicion.x < posicionNaveJugador.x) {
+                posicion.x += velocidad;
+            } else {
+                posicion.x -= velocidad;
+            }
+
         }
-        if (posicion.y < posicionNaveJugador.y) {
-            posicion.y += velocidad;
+
+        if (posicion.y < posicionNaveJugador.y || posicion.y == posicionNaveJugador.y || posicion.y == 10) {
+            posicion.y -= velocidad;
+//            posicion.x = posicion.x;
         } else {
             posicion.y -= velocidad;
         }
 
-        if (posicion.y == posicionNaveJugador.y) {
-            vivo = false;
+        if (posicion.y <= -100) {
+            Respawn();
         }
 
+    }
+
+
+    public void Respawn () {
+        posicion = posicionRandom();
+        vivo = true;
     }
 
 }
